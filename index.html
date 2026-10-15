@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicLens AI — Community Issue Intelligence Platform</title>
+  <meta name="description"
+    content="An offline-first community issue intelligence platform that transforms citizen observations into explainable priorities, recurring-problem insights, and practical community actions.">
+  <meta name="theme-color" content="#0b1120">
+
+  <!-- Core & Responsive Stylesheets -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
+</head>
+
+<body>
+
+  <!-- Backdrop for Mobile Navigation -->
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+  <div class="app-layout">
+    <!-- Desktop & Tablet Sidebar -->
+    <aside class="sidebar" aria-label="Main Navigation">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            <circle cx="11" cy="11" r="3" fill="#2dd4bf" stroke="none" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>CivicLens AI <span class="brand-badge">Local</span></h1>
+          <div class="brand-tagline">Issue Intelligence</div>
+        </div>
+      </div>
+
+      <div class="sidebar-action-wrap">
+        <button id="sidebar-cta-btn" class="btn-report-primary" aria-label="Report an Issue">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Report an Issue
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#overview" class="nav-item active" data-view="overview" id="nav-overview">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="3" width="7" height="7" />
+            <rect x="14" y="3" width="7" height="7" />
+            <rect x="14" y="14" width="7" height="7" />
+            <rect x="3" y="14" width="7" height="7" />
+          </svg>
+          <span>Overview</span>
+        </a>
+        <a href="#report" class="nav-item" data-view="report" id="nav-report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 20h9" />
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+          </svg>
+          <span>Report an Issue</span>
+        </a>
+        <a href="#issues" class="nav-item" data-view="issues" id="nav-issues">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="8" y1="6" x2="21" y2="6" />
+            <line x1="8" y1="12" x2="21" y2="12" />
+            <line x1="8" y1="18" x2="21" y2="18" />
+            <line x1="3" y1="6" x2="3.01" y2="6" />
+            <line x1="3" y1="12" x2="3.01" y2="12" />
+            <line x1="3" y1="18" x2="3.01" y2="18" />
+          </svg>
+          <span>Community Issues</span>
+        </a>
+        <a href="#hotspots" class="nav-item" data-view="hotspots" id="nav-hotspots">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <span>Hotspots</span>
+        </a>
+        <a href="#insights" class="nav-item" data-view="insights" id="nav-insights">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+            <polyline points="17 6 23 6 23 12" />
+          </svg>
+          <span>Insights</span>
+        </a>
+        <a href="#actions" class="nav-item" data-view="actions" id="nav-actions">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+          <span>Action Center</span>
+        </a>
+        <a href="#settings" class="nav-item" data-view="settings" id="nav-settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="storage-badge" title="Data stored only within this browser">
+          <span class="status-dot"></span>
+          <span>Offline / Local Storage</span>
+        </div>
+        <div class="theme-toggle-row">
+          <span>Theme Mode</span>
+          <button id="theme-toggle-btn" class="btn-icon" aria-label="Toggle Dark/Light theme" title="Toggle theme">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5" />
+              <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Mobile Topbar -->
+      <header class="topbar-mobile">
+        <div style="display:flex; align-items:center; gap:0.65rem;">
+          <div class="brand-logo" style="width:28px; height:28px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </div>
+          <strong style="font-size:1rem;">CivicLens AI</strong>
+        </div>
+        <button id="mobile-menu-btn" class="btn-icon" aria-label="Open Navigation Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </header>
+
+      <main class="main-content">
+        <!-- 1. VIEW: OVERVIEW DASHBOARD -->
+        <section id="view-overview" class="view-section active">
+          <header class="view-header">
+            <div class="view-header-title">
+              <h2>Community Issue Intelligence</h2>
+              <p>Real-time community observation synthesis, transparent priority ranking, and localized action.</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <span id="dashboard-last-updated" style="font-size:0.8rem; color:var(--text-dim);">Last updated: Just
+                now</span>
+              <button class="btn btn-primary" onclick="navigateTo('report')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                New Report
+              </button>
+            </div>
+          </header>
+
+          <!-- KPI Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-icon teal"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg></div>
+              <div class="kpi-data">
+                <h3 id="kpi-total-reports">0</h3>
+                <p>Total Community Reports</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon amber"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg></div>
+              <div class="kpi-data">
+                <h3 id="kpi-open-issues">0</h3>
+                <p>Open / Unresolved Issues</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon red"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                  <line x1="12" y1="9" x2="12" y2="13" />
+                  <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg></div>
+              <div class="kpi-data">
+                <h3 id="kpi-critical-issues">0</h3>
+                <p>High & Critical Urgency</p>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-icon emerald"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg></div>
+              <div class="kpi-data">
+                <h3 id="kpi-resolved-issues">0</h3>
+                <p>Resolved by Community</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Community Pulse -->
+          <div class="pulse-banner">
+            <div class="pulse-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </div>
+            <div class="pulse-body">
+              <h4>Community Pulse Analysis</h4>
+              <p id="community-pulse-text">Calculating local community activity...</p>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="dashboard-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10" />
+                    <line x1="12" y1="20" x2="12" y2="4" />
+                    <line x1="6" y1="20" x2="6" y2="14" />
+                  </svg>
+                  Reports by Category
+                </h3>
+                <span class="badge-subtle">Native SVG Visualization</span>
+              </div>
+              <div id="overview-category-chart" class="chart-container"></div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon
+                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                  Priority Distribution
+                </h3>
+                <span class="badge-subtle">Explainable Rules</span>
+              </div>
+              <div id="priority-distribution-list" class="priority-list"></div>
+              <p
+                style="font-size:0.75rem; color:var(--text-dim); margin-top:1rem; border-top:1px solid var(--border-color); padding-top:0.5rem;">
+                *Priority scores are local decision-support suggestions, not emergency dispatches.
+              </p>
+            </div>
+          </div>
+
+          <!-- Recent Reports Table -->
+          <div class="card">
+            <div class="card-header">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 14 14" />
+                </svg>
+                Recent Community Reports
+              </h3>
+              <button class="btn btn-secondary btn-sm" onclick="navigateTo('issues')">View All Issues →</button>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="recent-reports-table">
+                <thead>
+                  <tr>
+                    <th>Report ID</th>
+                    <th>Title</th>
+                    <th>Locality</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-reports-table-body">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. VIEW: REPORT AN ISSUE -->
+        <section id="view-report" class="view-section">
+          <header class="view-header">
+            <div class="view-header-title">
+              <h2>Report a Community Issue</h2>
+              <p>Log a local observation. The browser heuristic engine analyzes keywords, assesses risk, and scores
+                priority in real time.</p>
+            </div>
+          </header>
+
+          <div class="form-card">
+            <form id="report-issue-form" novalidate>
+              <div class="form-group">
+                <label for="report-title">Issue Title <span style="color:var(--priority-critical);">*</span></label>
+                <input type="text" id="report-title" class="form-input"
+                  placeholder="e.g. Deep pothole near Maple Elementary crosswalk" maxlength="140" required>
+                <div class="form-hint">Briefly state the problem and landmark.</div>
+              </div>
+
+              <div class="form-group">
+                <label for="report-description">Detailed Description <span
+                    style="color:var(--priority-critical);">*</span></label>
+                <textarea id="report-description" class="form-textarea"
+                  placeholder="Describe the physical condition, hazards, how long it has been observed, and impact on pedestrians or vehicles..."
+                  maxlength="1000" required></textarea>
+                <div class="form-hint">Mention safety concerns, water pooling, exposed wiring, or mobility barriers to
+                  improve classification accuracy.</div>
+              </div>
+
+              <!-- Live Heuristic Classifier Feedback -->
+              <div id="classifier-live-preview" class="ai-preview-box" style="display:none;"></div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="report-category">Issue Category</label>
+                  <select id="report-category" class="form-select">
+                    <!-- Populated dynamically -->
+                  </select>
+                  <div class="form-hint">Auto-suggested by text heuristic or override manually.</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="report-locality">Locality / Neighborhood <span
+                      style="color:var(--priority-critical);">*</span></label>
+                  <input type="text" id="report-locality" class="form-input"
+                    placeholder="e.g. Maple Heights, Cedar Valley" maxlength="60" required>
+                  <div class="form-hint">Neighborhood or sector name. No GPS/geocoding used.</div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="report-severity">Reporter Observed Severity</label>
+                  <select id="report-severity" class="form-select">
+                    <option value="Low">Low — Minor inconvenience or cosmetic issue</option>
+                    <option value="Medium" selected>Medium — Disruption to daily routine</option>
+                    <option value="High">High — Hazardous to pedestrians, commuters, or public health</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="report-observed-date">Date Observed</label>
+                  <input type="date" id="report-observed-date" class="form-input">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="report-reporter-name">Reporter Display Name (Optional)</label>
+                  <input type="text" id="report-reporter-name" class="form-input" placeholder="e.g. Jane D. or Resident"
+                    maxlength="40">
+                  <div class="form-hint">Stored strictly in local storage. Never sent to any server.</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="report-tags">Optional Tags (comma-separated)</label>
+                  <input type="text" id="report-tags" class="form-input" placeholder="e.g. sidewalk, school-zone, flood"
+                    maxlength="80">
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2rem;">
+                <span style="font-size:0.8rem; color:var(--text-dim);">*Stored locally in your browser.</span>
+                <div style="display:flex; gap:0.75rem;">
+                  <button type="button" class="btn btn-secondary" onclick="resetReportForm()">Reset</button>
+                  <button type="submit" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                      <polyline points="17 21 17 13 7 13 7 21" />
+                      <polyline points="7 3 7 8 15 8" />
+                    </svg>
+                    Submit Report
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- 3. VIEW: COMMUNITY ISSUES EXPLORER -->
+        <section id="view-issues" class="view-section">
+          <header class="view-header">
+            <div class="view-header-title">
+              <h2>Community Issues Explorer</h2>
+              <p>Search, filter, inspect, and update the status of community reports across all tracked localities.</p>
+            </div>
+            <button class="btn btn-primary" onclick="navigateTo('report')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              Report Issue
+            </button>
+          </header>
+
+          <!-- Filter & Search Controls -->
+          <div class="filter-bar">
+            <div class="search-row">
+              <div class="search-input-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="text" id="issues-search-input" class="form-input"
+                  placeholder="Search by title, description, locality, or report ID...">
+              </div>
+              <button id="issues-clear-filters-btn" class="btn btn-secondary"
+                title="Clear all search and filter conditions">Clear Filters</button>
+            </div>
+
+            <div class="filter-selects-row">
+              <select id="issues-filter-category" class="form-select">
+                <option value="all">All Categories</option>
+              </select>
+
+              <select id="issues-filter-priority" class="form-select">
+                <option value="all">All Priorities</option>
+                <option value="Critical">Critical</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+
+              <select id="issues-filter-status" class="form-select">
+                <option value="all">All Statuses</option>
+                <option value="Open">Open</option>
+                <option value="Acknowledged">Acknowledged</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+              </select>
+
+              <select id="issues-sort-select" class="form-select">
+                <option value="newest">Sort: Newest First</option>
+                <option value="oldest">Sort: Oldest First</option>
+                <option value="priority">Sort: Highest Priority</option>
+              </select>
+            </div>
+
+            <div
+              style="display:flex; justify-content:space-between; align-items:center; font-size:0.85rem; color:var(--text-muted);">
+              <span id="issues-filtered-count">Showing reports...</span>
+              <span style="font-size:0.75rem; color:var(--text-dim);">*Click any issue card to view details,
+                explainability breakdown, or update status</span>
+            </div>
+          </div>
+
+          <!-- Cards Grid -->
+          <div id="issues-cards-container" class="issue-cards-grid">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <!-- 4. VIEW: HOTSPOTS -->
+        <section id="view-hotspots" class="view-section">
+          <header class="view-header">
+            <div class="view-header-title">
+              <h2>Community Hotspots & Clusters</h2>
+              <p>Algorithmic locality clustering based on unresolved issue density, safety severity, and historical
+                report counts.</p>
+            </div>
+          </header>
+
+          <div class="hotspots-grid">
+            <div>
+              <h3
+                style="font-size:1.1rem; font-weight:700; margin-bottom:1rem; display:flex; align-items:center; gap:0.5rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Ranked Hotspot Localities
+              </h3>
+              <div id="hotspots-ranking-container">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <div id="hotspot-details-container">
+              <!-- Populated by JS when a locality is clicked -->
+            </div>
+          </div>
+
+          <div class="methodology-box">
+            <h4>Hotspot Ranking Formulation</h4>
+            <p>Hotspot score index is computed transparently without external GIS or maps APIs:</p>
+            <p>
+              <code>Hotspot Score = (Open Reports × 10) + (Critical Reports × 15) + (High Reports × 8) + (Total Reports × 2)</code>
+            </p>
+            <ul>
+              <li><strong>Recurring patterns:</strong> Multiple open reports in the same locality trigger clustering
+                flags in the Action Center.</li>
+              <li><strong>Local scope:</strong> Identifies neighborhoods experiencing infrastructure degradation to
+                guide community walkthroughs and collective petitions.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 5. VIEW: INSIGHTS & INTELLIGENCE -->
+        <section id="view-insights" class="view-section">
+          <header class="view-header">
+            <div class="view-header-title">
+              <h2>Community Intelligence & Analytics</h2>
+              <p>Key observations, resolution velocity, and longitudinal trends derived dynamically from active records.
+              </p>
+            </div>
+          </header>
+
+          <div id="insights-grid-container" class="kpi-grid" style="margin-bottom:2rem;">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="card" style="margin-bottom:2rem;">
+            <div class="card-header">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+                Community Observation Timeline (Reports by Day)
+              </h3>
+              <span class="badge-subtle">Native Area Curve</span>
+            </div>
+            <div id="insights-timeline-chart" class="chart-container"></div>
+          </div>
+
+          <div class="methodology-box">
+            <h4>CivicLens AI Intelligence Methodology & Limitations</h4>
+            <p><strong>1. Heuristic Classification:</strong> Uses text normalization, token boundary matching, and
+              weighted term frequency dictionaries across 7 civic domains. Does not call third-party Large Language
+              Models or cloud AI APIs.</p>
+            <p><strong>2. Explainable Priority Scoring:</strong> Transparent arithmetic weighting based on reported
+              severity (+10 to +35), safety-critical hazard tokens (+8 to +25), accessibility barriers (+12), and
+              recurring locality clusters (+6 per unresolved neighbor report).</p>
+            <p><strong>3. Limitations & Disclaimers:</strong></p>
+            <ul>
+              <li>Keyword rules cannot comprehend all nuanced real-world contexts. Users can manually override suggested
+                categories.</li>
+              <li>Priority scores are community decision-support suggestions, NOT verified municipal assessments or
+                police/fire emergency dispatches.</li>
+              <li>All observations are stored exclusively within the local browser and require manual export to share.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 6. VIEW: ACTION CENTER -->
+        <section id="view-actions" class="view-section">
+          <header class="view-header">
+            <div class="view-header-title">
+              <h2>Action Center — Drive Community Impact</h2>
+              <p>Automated, rule-based recommendations that translate recurring problems into concrete citizen
+                initiatives, petitions, and checklists.</p>
+            </div>
+          </header>
+
+          <div id="action-recommendations-container">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="methodology-box">
+            <h4>How Action Recommendations are Generated</h4>
+            <p>Recommendations are dynamically triggered when specific criteria are satisfied in the local dataset:</p>
+            <ul>
+              <li><strong>Sanitation Cleanups:</strong> Triggered when 2 or more unresolved Waste Management reports
+                occur in the same locality.</li>
+              <li><strong>Road Repair Dossiers:</strong> Synthesized when multiple pothole or asphalt defects affect
+                pedestrian or school routes.</li>
+              <li><strong>Drainage Audits:</strong> Formulated when water leaks or culvert blockages create flooding or
+                health risks.</li>
+              <li><strong>Accessibility Walkthroughs:</strong> Created when wheelchair ramps or pedestrian signals are
+                reported nonfunctional.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 7. VIEW: SETTINGS & LOCAL DATA -->
+        <section id="view-settings" class="view-section">
+          <header class="view-header">
+            <div class="view-header-title">
+              <h2>Application Settings & Data Management</h2>
+              <p>Manage your local browser storage, export backups, restore demonstration data, or review architectural
+                privacy guarantees.</p>
+            </div>
+          </header>
+
+          <div
+            style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2rem;">
+            <!-- Data Backup & Portability -->
+            <div class="card">
+              <div class="card-header">
+                <h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  Data Backup & Portability
+                </h3>
+              </div>
+              <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                Export all community reports, action plans, and history into a clean JSON document, or restore from a
+                previously exported backup file.
+              </p>
+              <div style="display:flex; flex-direction:column; gap:0.75rem;">
+                <button id="settings-export-btn" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  Export Data (JSON)
+                </button>
+
+                <label class="btn btn-secondary" style="cursor:pointer; text-align:center;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                  </svg>
+                  Import Backup File (JSON)
+                  <input type="file" id="settings-import-file" accept=".json" style="display:none;">
+                </label>
+              </div>
+            </div>
+
+            <!-- Demo Data & Storage Reset -->
+            <div class="card">
+              <div class="card-header">
+                <h3>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="1 4 1 10 7 10" />
+                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" />
+                  </svg>
+                  Demo Controls & Storage Reset
+                </h3>
+              </div>
+              <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                Current Storage Usage: <strong id="storage-usage-value"
+                  style="color:var(--teal-400);">Calculating...</strong><br />
+                All data resides safely in your browser's localStorage.
+              </p>
+              <div style="display:flex; flex-direction:column; gap:0.75rem;">
+                <button id="settings-reset-demo-btn" class="btn btn-secondary">
+                  Reset to 22 Built-in Demo Reports
+                </button>
+                <button id="settings-clear-all-btn" class="btn btn-danger">
+                  Clear All Local Storage
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Documentation & Architectural Guarantees -->
+          <div class="card">
+            <div class="card-header">
+              <h3>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+                Platform Information & Integrity Guarantees
+              </h3>
+            </div>
+            <div style="font-size:0.9rem; color:var(--text-muted); line-height:1.6;">
+              <p><strong>CivicLens AI v1.0.0</strong> — Built for Hackathon demonstration of offline-first community
+                issue intelligence.</p>
+              <ul style="padding-left:1.25rem; margin-top:0.5rem; margin-bottom:1rem;">
+                <li><strong>Zero External APIs:</strong> No cloud dependencies, Google Maps keys, or remote AI servers
+                  required.</li>
+                <li><strong>Absolute Privacy:</strong> Zero server logging, analytics beacons, or third-party tracking
+                  scripts.</li>
+                <li><strong>Automated GitHub Pages:</strong> Built with static HTML5, CSS3, and modern vanilla
+                  JavaScript ES6+.</li>
+              </ul>
+              <div style="display:flex; gap:1rem; flex-wrap:wrap; font-size:0.85rem;">
+                <a href="tests/index.html" target="_blank"
+                  style="color:var(--teal-400); text-decoration:none; font-weight:600;">Run Automated Test Suite →</a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Issue Detail Modal -->
+  <div id="issue-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modal-title">Issue Intelligence Dossier</h3>
+        <button class="btn-icon" onclick="closeIssueModal()" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div id="modal-content-area" class="modal-body">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts: Loaded in dependency order -->
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/seed-data.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/classifier.js"></script>
+  <script src="assets/js/intelligence.js"></script>
+  <script src="assets/js/charts.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+
+</html>

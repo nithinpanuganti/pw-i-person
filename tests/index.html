@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivicLens AI — Automated Test Suite</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card: #1e293b;
+      --border: rgba(148, 163, 184, 0.15);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --pass: #10b981;
+      --fail: #ef4444;
+      --teal: #14b8a6;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+    .summary-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .metric h3 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    .metric p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .test-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .test-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .test-item.pass {
+      border-left: 4px solid var(--pass);
+    }
+    .test-item.fail {
+      border-left: 4px solid var(--fail);
+    }
+    .badge {
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-pass { background: rgba(16, 185, 129, 0.2); color: var(--pass); }
+    .badge-fail { background: rgba(239, 68, 68, 0.2); color: var(--fail); }
+    .btn {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1 style="margin: 0; font-size: 1.75rem;">CivicLens AI — Test Runner</h1>
+        <p style="margin: 0.25rem 0 0; color: var(--text-muted);">Self-contained, in-browser unit and integration test suite</p>
+      </div>
+      <div>
+        <button id="run-tests-btn" class="btn">Run All Tests</button>
+        <a href="../index.html" style="margin-left: 0.75rem; color: var(--teal); text-decoration: none; font-size: 0.9rem;">Back to App</a>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="metric">
+        <h3 id="stat-total" style="color: var(--text);">0</h3>
+        <p>Total Tests</p>
+      </div>
+      <div class="metric">
+        <h3 id="stat-passed" style="color: var(--pass);">0</h3>
+        <p>Passed</p>
+      </div>
+      <div class="metric">
+        <h3 id="stat-failed" style="color: var(--fail);">0</h3>
+        <p>Failed</p>
+      </div>
+      <div class="metric">
+        <h3 id="stat-time" style="color: var(--teal);">0 ms</h3>
+        <p>Execution Time</p>
+      </div>
+    </div>
+
+    <div id="test-results" class="test-list">
+      <!-- Injected by tests.js -->
+    </div>
+  </div>
+
+  <!-- Load dependencies -->
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/seed-data.js"></script>
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/classifier.js"></script>
+  <script src="../assets/js/intelligence.js"></script>
+  <script src="tests.js"></script>
+</body>
+</html>
